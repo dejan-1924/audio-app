@@ -1,0 +1,14 @@
+.cart {
+  padding: 1rem;
+}
+
+.title {
+  padding: 0.5rem 0rem;
+}
+
+.emptyCart {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,14 @@
+.wishList {
+  padding: 1rem;
+}
+
+.title {
+  padding: 0.5rem 0rem;
+}
+
+.emptyWishList {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

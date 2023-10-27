@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --blue: rgb(14, 108, 190);
+  --lightestGrey: rgb(234, 232, 232);
+  --lightGrey: rgb(219, 219, 219);
+  --textGrey: rgb(94, 94, 94);
+  --inputGrey: rgb(120, 120, 120);
+  --darkGrey: rgb(47, 47, 47);
+  --green: rgb(10, 239, 189);
+  --backGroundGrey: rgb(248, 248, 248);
+}
+
+button {
+  cursor: pointer;
+}

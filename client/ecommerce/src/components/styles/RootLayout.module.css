@@ -1,0 +1,22 @@
+.newsContainer {
+  background-color: var(--green);
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.news {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+@media only screen and (min-width: 1000px) {
+  .main {
+    margin: auto;
+    width: 60%;
+    min-width: 800px;
+  }
+}

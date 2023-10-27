@@ -1,0 +1,159 @@
+.productContainer {
+  display: flex;
+  padding: 1rem;
+  border-top: 1px solid var(--lightestGrey);
+  gap: 0.5rem;
+  width: 100%;
+  flex-direction: column;
+}
+
+.productInfo {
+  width: 100%;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+}
+
+.productImage {
+  width: 100%;
+  cursor: pointer;
+}
+
+.productDetails {
+  color: var(--textGrey);
+  font-size: 0.9rem;
+}
+
+.productInfoPriceContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.productInfoContainer {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.productActions {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.addToCartButton {
+  background-color: var(--blue);
+  color: white;
+  border: 0px;
+  padding: 0.4rem;
+  width: 100%;
+  min-width: 50px;
+  max-width: 200px;
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.likeButton {
+  background-color: var(--lightGrey);
+  color: rgb(41, 39, 39);
+  border: 0px;
+  padding: 0.4rem;
+  min-width: 50px;
+  border-radius: 0.3rem;
+}
+
+.unlikeButton {
+  background-color: rgb(41, 39, 39);
+  color: var(--lightGrey);
+  border: 0px;
+  padding: 0.3rem;
+  min-width: 50px;
+  border-radius: 0.3rem;
+}
+
+.cartActions {
+  display: flex;
+  max-width: 200px;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.removeItem {
+  color: var(--blue);
+  font-size: 0.9rem;
+}
+
+.addToCartButtonNumber {
+  position: absolute;
+  border: 1px solid var(--blue);
+  border-radius: 1rem;
+  min-width: 16px;
+  left: 80px;
+  background-color: white;
+  color: var(--blue);
+  left: 52%;
+  top: 6%;
+}
+.buttonContent {
+  display: flex;
+}
+
+.productTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.productArtist {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.productPrice {
+  font-size: 1.2rem;
+}
+
+@media only screen and (min-width: 500px) {
+  .productContainer {
+    flex-direction: row;
+  }
+  .productImage {
+    max-width: 400px;
+  }
+  .productInfo {
+    gap: 0.5rem;
+  }
+
+  .productContainer {
+    gap: 1rem;
+  }
+  .productTitle {
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+  .productDetails {
+    font-size: 1rem;
+  }
+  .productArtist {
+    font-size: 1.8rem;
+  }
+  .productPrice {
+    font-size: 1.8rem;
+  }
+  .addToCartButton,
+  .likeButton,
+  .unlikeButton {
+    padding: 1rem;
+  }
+}

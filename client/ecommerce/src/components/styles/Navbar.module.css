@@ -1,0 +1,30 @@
+.navbar {
+  background-color: var(--darkGrey);
+}
+
+.navbarContent {
+  color: white;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.navbarLeft,
+.navbarRight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.navbarItem {
+  text-decoration: none;
+  color: white;
+}
+@media only screen and (min-width: 1000px) {
+  .navbarContent {
+    width: 60%;
+    margin: auto;
+    padding: 1rem 0rem;
+    min-width: 800px;
+  }
+}

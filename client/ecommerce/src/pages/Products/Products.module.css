@@ -1,0 +1,89 @@
+.info {
+  background-color: var(--green);
+  padding: 1rem 0.5rem;
+  font-size: 0.85rem;
+  height: 110px;
+}
+.infoContent {
+  margin-top: 0.3rem;
+  width: 80%;
+}
+
+.products {
+  padding: 0rem 0.5rem;
+  margin-top: 1rem;
+}
+.titleContainer {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.itemCount {
+  color: var(--textGrey);
+}
+
+.filtersContainer {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  margin-bottom: 1rem;
+}
+
+.filterButton {
+  background-color: var(--darkGrey);
+  color: white;
+  border: 0px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.3rem;
+}
+.orderButtonsContainer {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.orderButtonLine {
+  border-left: 1px solid var(--lightGrey);
+}
+.orderButton {
+  background-color: white;
+  color: rgb(47, 47, 47);
+  border: 0px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.3rem;
+}
+
+.productsContainer {
+  width: 100%;
+}
+
+.sideFilters {
+  display: none;
+}
+
+.productList {
+  width: 100%;
+}
+
+@media only screen and (min-width: 1000px) {
+  .productsContainer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .productList {
+    width: 80%;
+  }
+  .sideFilters {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
