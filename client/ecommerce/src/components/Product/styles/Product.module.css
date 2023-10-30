@@ -123,6 +123,10 @@
   font-weight: 600;
 }
 
+.alreadyInWishlist {
+  font-size: 0.9rem;
+}
+
 @media only screen and (min-width: 1000px) {
   .productInfo {
     gap: 0.25rem;

@@ -8,7 +8,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const product = {
-  id: 2,
+  _id: 2,
   artist_name: "Alice In Chains",
   item_name: "Dirt",
   price: 35,
@@ -48,7 +48,7 @@ const ProductPage = () => {
         <div className={classes.productActions}>
           <div>
             <>
-              {!isItemInWishList(product.id) ? (
+              {!isItemInWishList(product._id) ? (
                 <button
                   className={classes.likeButton}
                   onClick={() => addToWishList(product)}
@@ -58,7 +58,7 @@ const ProductPage = () => {
               ) : (
                 <button
                   className={classes.likeButton}
-                  onClick={() => removeFromWishList(product.id)}
+                  onClick={() => removeFromWishList(product._id)}
                 >
                   <FavoriteIcon></FavoriteIcon>
                 </button>
@@ -72,9 +72,9 @@ const ProductPage = () => {
             >
               <div className={classes.buttonContent}>
                 <ShoppingCartIcon></ShoppingCartIcon>
-                {getItemCountInCart(product.id) > 0 && (
+                {getItemCountInCart(product._id) > 0 && (
                   <span className={classes.addToCartButtonNumber}>
-                    {getItemCountInCart(product.id)}
+                    {getItemCountInCart(product._id)}
                   </span>
                 )}
               </div>
