@@ -15,7 +15,6 @@ export interface IUser {
   };
   phone: string;
   availableMoney: number;
-  purchasedItems: string[];
 }
 
 const UserSchema = new Schema<IUser>({
@@ -32,9 +31,6 @@ const UserSchema = new Schema<IUser>({
     postal_code: { type: Number, required: true },
   },
   phone: { type: String, required: true },
-  purchasedItems: [
-    { type: Schema.Types.ObjectId, ref: "product", default: [] },
-  ],
 });
 
 export const UserModel = model<IUser>("user", UserSchema);
