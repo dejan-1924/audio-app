@@ -3,15 +3,31 @@ import Select from "react-select";
 import { useForm } from "react-hook-form";
 import classes from "./Auth.module.css";
 import Register from "./Register";
+import axios from "axios";
+import { ConnectionStates } from "mongoose";
+import { useNavigate } from "react-router";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (values: any) => console.log(values);
+  const onSubmit = async (values: any) => {
+    try {
+      const result = await axios.post("http://localhost:3001/auth/login", {
+        username: values.email,
+        password: values.password,
+      });
+      console.log(result.data);
+      navigate("/shop");
+    } catch (err: any) {
+      alert("ERROR!");
+    }
+  };
 
   return (
     <div className={classes.authPage}>
