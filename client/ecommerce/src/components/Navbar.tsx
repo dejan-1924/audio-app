@@ -7,8 +7,13 @@ import classes from "./styles/Navbar.module.css";
 import { Link } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LoginModal from "./Login/LoginModal";
+import { useContext } from "react";
+import { ShopContext } from "../store/shop-store";
+import { Badge } from "@mui/material";
 
 const Navbar = (props: any) => {
+  const { getDiffItemsInCart } = useContext(ShopContext);
+
   const handleOpenLoginModal = () => {
     props.setOpenModal(true);
   };
@@ -38,7 +43,9 @@ const Navbar = (props: any) => {
             <FavoriteBorderIcon></FavoriteBorderIcon>
           </Link>
           <Link to="/cart" className={classes.navbarItem}>
-            <ShoppingCartIcon></ShoppingCartIcon>
+            <Badge badgeContent={getDiffItemsInCart()} color="primary">
+              <ShoppingCartIcon></ShoppingCartIcon>
+            </Badge>
           </Link>
         </div>
       </div>

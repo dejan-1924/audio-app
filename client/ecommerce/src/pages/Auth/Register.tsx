@@ -2,6 +2,8 @@ import React from "react";
 import Select from "react-select";
 import { useForm, Controller } from "react-hook-form";
 import classes from "./Auth.module.css";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 const customStyles = {
   control: (base, state) => ({
@@ -78,6 +80,8 @@ let countries = [
   { value: "Germany", label: "Germany" },
 ];
 const Register = () => {
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
@@ -99,7 +103,30 @@ const Register = () => {
     },
   });
 
-  const onSubmit = (values: any) => console.log(values);
+  const onSubmit = async (values: any) => {
+    console.log(values);
+    try {
+      const result = await axios.post("http://localhost:3001/auth/register", {
+        username: values.email,
+        password: values.password,
+        first_name: values.firstName,
+        last_name: values.lastName,
+        address: {
+          postal_code: values.postalCode,
+          street_name: values.street,
+          street_number: values.streetNumber,
+          country: values.country.value,
+          city: values.city,
+        },
+        phone: values.telephone,
+      });
+      console.log(result.data);
+      alert("SUCCES!");
+      navigate("/login");
+    } catch (err: any) {
+      alert("ERROR!");
+    }
+  };
 
   return (
     <div className={classes.register}>

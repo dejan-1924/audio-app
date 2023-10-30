@@ -13,6 +13,7 @@ export interface IShopContext {
   removeFromCart: (itemId: string) => void;
   getWishListItemCount: () => number;
   getItemCountInCart: (itemId: number) => number;
+  getDiffItemsInCart: () => number;
 }
 
 type ProductType = {
@@ -145,6 +146,11 @@ export const ShopContextProvider = (props: any) => {
       return 0;
     }
   };
+
+  const getDiffItemsInCart = () => {
+    return cartItems?.length;
+  };
+
   const contextValue: IShopContext = {
     wishListItems,
     cartItems,
@@ -158,6 +164,7 @@ export const ShopContextProvider = (props: any) => {
     updateCartItemCount,
     removeFromCart,
     getItemCountInCart,
+    getDiffItemsInCart,
   };
 
   return (
