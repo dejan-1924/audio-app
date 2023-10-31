@@ -117,10 +117,13 @@
 .buttonContent {
   display: flex;
 }
-
-.productTitle {
-  font-size: 0.95rem;
+.productArtist {
+  font-size: 1rem;
   font-weight: 600;
+}
+.productTitle {
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .alreadyInWishlist {
@@ -137,6 +140,7 @@
   }
   .productArtist {
     font-size: 1.4rem;
+    font-weight: 500;
   }
   .productContainer {
     gap: 1rem;

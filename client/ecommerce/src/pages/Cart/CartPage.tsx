@@ -4,19 +4,6 @@ import classes from "./Cart.module.css";
 import { useContext } from "react";
 import { ShopContext } from "../../store/shop-store";
 
-const products = [
-  {
-    id: 1,
-    artist_name: "Alice In Chains",
-    item_name: "Facelift",
-    price: 30,
-    content: "2LP",
-    year: "2023",
-    image:
-      "https://upload.wikimedia.org/wikipedia/en/4/43/Alice_In_Chains-Facelift.jpg",
-  },
-];
-
 const CartPage = () => {
   const { cartItems, getCartItemCount } = useContext(ShopContext);
 

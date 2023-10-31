@@ -39,7 +39,7 @@ const ProductsPage = () => {
               {products.map((product: any) => {
                 return (
                   <Product
-                    key={product.id}
+                    key={product._id}
                     product={product}
                     page={"products"}
                   ></Product>

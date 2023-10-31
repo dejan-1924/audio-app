@@ -55,4 +55,13 @@ router.get("/", async (req, res) => {
   res.json(products);
 });
 
+router.get("/id/:productId", async (req, res) => {
+  const product = await ProductModel.findOne({ _id: req.params.productId });
+  if (product) {
+    res.json(product);
+  } else {
+    res.status(404).json({ message: "Product Not Found" });
+  }
+});
+
 export { router as productRouter };
