@@ -1,0 +1,67 @@
+.home {
+  width: 100%;
+  padding: 1rem;
+}
+
+.imagesContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 1rem;
+}
+
+.imageContainer {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.image {
+  max-width: 500px;
+  aspect-ratio: 1/1;
+  min-width: 350px;
+}
+
+.imageButton {
+  position: absolute;
+  background-color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 0.3rem;
+  font-size: 1rem;
+}
+
+.paragraph {
+  padding: 4rem 0rem;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgb(150, 148, 148);
+  margin-top: 4rem;
+  font-weight: 400;
+}
+
+.paragraphMainTitle {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.paragraphTitle {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.subParagraph {
+  margin-bottom: 1rem;
+}
+
+@media only screen and (min-width: 1000px) {
+  .image {
+    max-width: 500px;
+    aspect-ratio: 1/1.2;
+  }
+}

@@ -1,5 +1,6 @@
 .wishList {
   padding: 1rem;
+  min-height: 80vh;
 }
 
 .title {
