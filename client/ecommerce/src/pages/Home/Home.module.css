@@ -38,11 +38,11 @@
 }
 
 .paragraph {
-  padding: 4rem 0rem;
+  padding: 3rem 0rem;
   display: flex;
   flex-direction: column;
   border-top: 1px solid rgb(150, 148, 148);
-  margin-top: 4rem;
+  margin-top: 3.5rem;
   font-weight: 400;
 }
 

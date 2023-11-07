@@ -16,11 +16,11 @@ const RootLayout = () => {
   return (
     <>
       <div>
-        <div className={classes.newsContainer}>
+        {/*<div className={classes.newsContainer}>
           <div className={classes.news}>
             10% ON TOP MUSIC SALE - Code: recdeal
           </div>
-        </div>
+        </div>*/}
         <Navbar setOpenModal={setLoginModalOpen}></Navbar>
         <main className={classes.main}>
           <Outlet></Outlet>

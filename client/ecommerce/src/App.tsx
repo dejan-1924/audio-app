@@ -14,6 +14,7 @@ import ProfilePage from "./pages/Profile/ProfilePage";
 import CartPage from "./pages/Cart/CartPage";
 import WishListPage from "./pages/WishList/WishListPage";
 import ProductPage from "./pages/Products/ProductPage";
+import { Navigate } from "react-router-dom";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
