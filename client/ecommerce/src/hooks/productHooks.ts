@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { ShopContext } from "../store/shop-store";
-import { useContext } from "react";
 
 export const useGetProductsBySearchQuery = (
   page: number,

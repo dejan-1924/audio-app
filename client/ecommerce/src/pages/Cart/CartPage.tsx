@@ -4,12 +4,13 @@ import classes from "./Cart.module.css";
 import { useContext } from "react";
 import { ShopContext } from "../../store/shop-store";
 import { AuthContext } from "../../store/auth-store";
+import { useNavigate } from "react-router";
 import axios from "axios";
 const CartPage = () => {
   const { cartItems, getCartItemCount, getTotalPrice, resetCart } =
     useContext(ShopContext);
   const { isLoggedIn, token } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const jwttoken = token();
   console.log(jwttoken);
   const handleOrder = async () => {
@@ -33,6 +34,7 @@ const CartPage = () => {
       console.log(result.data);
       alert("Order created succesfully");
       resetCart();
+      navigate("/profile/orders");
     } catch (err: any) {
       alert("ERROR!");
     }

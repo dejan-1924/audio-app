@@ -7,11 +7,7 @@ import { Outlet } from "react-router";
 const AuthRoute = (children: any) => {
   const authCtx = useContext(AuthContext);
 
-  if (!authCtx?.isLoggedIn) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return <Outlet />;
+  return authCtx.isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default AuthRoute;

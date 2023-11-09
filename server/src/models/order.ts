@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { Stream } from "stream";
 const mongoose = require("mongoose");
 
 export interface IOrder {
@@ -13,7 +14,16 @@ export interface IOrder {
   };
   shipping_price: number;
   phone: string;
-  items: [{ itemId: string; amount: number }];
+  items: [
+    {
+      itemId: string;
+      amount: number;
+      image: string;
+      price: number;
+      artist_name: string;
+      product_name: string;
+    }
+  ];
   order_price: number;
   total_price: number;
 }
@@ -40,6 +50,10 @@ const OrderSchema = new Schema<IOrder>(
           ref: "product",
         },
         amount: { type: Number, required: true },
+        price: { type: Number, required: true },
+        image: { type: String },
+        artist_name: { type: String, required: true },
+        product_name: { type: String, required: true },
       },
     ],
   },

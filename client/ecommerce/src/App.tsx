@@ -31,6 +31,7 @@ const router = createBrowserRouter(
         <Route path="/wishlist" element={<WishListPage></WishListPage>} />
         <Route path="/profile/orders" element={<MyOrdersPage></MyOrdersPage>} />
       </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Route>
   )
 );

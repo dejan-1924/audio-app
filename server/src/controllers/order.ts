@@ -22,7 +22,7 @@ const createOrder = async (req, res) => {
   try {
     const { items } = req.body;
     const userId = req.userData.userId;
-
+    let itemsForOrder = [];
     const user = await UserModel.findOne({ _id: userId });
 
     if (!user) {
@@ -49,6 +49,13 @@ const createOrder = async (req, res) => {
           error: `Ordered amount exceeds stock quantity for product with ID ${item.itemId}`,
         });
       }
+      itemsForOrder.push({
+        ...item,
+        price: product.price,
+        image: product.image,
+        artist_name: product.artist_name,
+        product_name: product.product_name,
+      });
       totalPrice += product.price * item.amount;
     }
 
@@ -58,7 +65,7 @@ const createOrder = async (req, res) => {
       shipping_price: getShippingPrice(), // You may need to define or import the getShippingPrice function
       order_price: totalPrice,
       phone: user.phone,
-      items: items,
+      items: itemsForOrder,
       total_price: totalPrice + getShippingPrice(),
     });
 
@@ -77,4 +84,19 @@ const createOrder = async (req, res) => {
   }
 };
 
+const getUsersOrders = async (req, res) => {
+  try {
+    const userId = req.userData.userId;
+
+    const usersOrders = await OrderModel.find({ userId: userId });
+
+    const total = usersOrders.length;
+    return res.status(200).json({ data: usersOrders, totalOrders: total });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 exports.createOrder = createOrder;
+exports.getUsersOrders = getUsersOrders;

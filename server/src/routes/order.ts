@@ -9,4 +9,6 @@ router.use(authCheck.authCheck);
 
 router.post("/new", orderController.createOrder);
 
+router.get("/my-orders", orderController.getUsersOrders);
+
 export { router as orderRouter };
