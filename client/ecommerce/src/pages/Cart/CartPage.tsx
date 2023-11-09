@@ -3,10 +3,11 @@ import Product from "../../components/Product/Product";
 import classes from "./Cart.module.css";
 import { useContext } from "react";
 import { ShopContext } from "../../store/shop-store";
-
+import { AuthContext } from "../../store/auth-store";
 const CartPage = () => {
   const { cartItems, getCartItemCount, getTotalPrice } =
     useContext(ShopContext);
+  const { isLoggedIn } = useContext(AuthContext);
 
   const totalPrice = getTotalPrice();
   const shippingPrice = 20;
@@ -24,15 +25,20 @@ const CartPage = () => {
           );
         })
       )}
-
-      <div className={classes.checkout}>
-        <div>
-          <p>Total order : {totalPrice}€</p>
-          <p>Shipping : {shippingPrice}€</p>
-          <h3>Total price : {totalPrice + shippingPrice}€</h3>
-        </div>
-        <button className={classes.orderButton}>Order</button>
-      </div>
+      {isLoggedIn && (
+        <>
+          {getCartItemCount() > 0 && (
+            <div className={classes.checkout}>
+              <div>
+                <p>Total order : {totalPrice}€</p>
+                <p>Shipping : {shippingPrice}€</p>
+                <h3>Total price : {totalPrice + shippingPrice}€</h3>
+              </div>
+              <button className={classes.orderButton}>Order</button>
+            </div>
+          )}{" "}
+        </>
+      )}
     </div>
   );
 };

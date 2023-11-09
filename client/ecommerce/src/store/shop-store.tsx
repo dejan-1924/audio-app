@@ -1,4 +1,12 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useEffect,
+  useState,
+  useContext,
+} from "react";
+import { AuthContext } from "./auth-store";
+import { useNavigate } from "react-router";
 
 export interface IShopContext {
   cartItems: Array<ProductTypeAmount> | null;
@@ -58,6 +66,7 @@ type ProductTypeAmount = {
 export const ShopContext = createContext<IShopContext | null>(null);
 
 export const ShopContextProvider = (props: any) => {
+  const authCtx = useContext(AuthContext);
   const [cartItems, setCartItems] = useState<[ProductTypeAmount] | null>(null);
   const [wishListItems, setWishListItems] = useState<[ProductType] | null>(
     null
@@ -93,12 +102,18 @@ export const ShopContextProvider = (props: any) => {
   };
 
   const addToWishList = (product: ProductType) => {
-    if (!wishListItems) {
-      let newWLItems = [{ ...product }];
-      setWishListItems(newWLItems);
+    if (authCtx?.isLoggedIn) {
+      if (!wishListItems) {
+        let newWLItems = [{ ...product }];
+        setWishListItems(newWLItems);
+      } else {
+        let newWLItems = [...wishListItems, { ...product }];
+        setWishListItems(newWLItems);
+      }
     } else {
-      let newWLItems = [...wishListItems, { ...product }];
-      setWishListItems(newWLItems);
+      alert("You must be logged in to add items to your wishlist.");
+
+      return;
     }
   };
 

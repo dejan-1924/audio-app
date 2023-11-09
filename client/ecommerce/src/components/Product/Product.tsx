@@ -6,7 +6,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { ShopContext } from "../../store/shop-store";
 import Select from "react-select";
 import { useNavigate } from "react-router";
-
+import { AuthContext } from "../../store/auth-store";
 const Product = (props: any) => {
   const {
     addToCart,
@@ -17,6 +17,7 @@ const Product = (props: any) => {
     removeFromCart,
     getItemCountInCart,
   } = useContext(ShopContext);
+  const { isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   //Order Count Options
   let orderOptions: Array<{ value: any; label: any }> = [];
@@ -139,8 +140,15 @@ const Product = (props: any) => {
                   <p
                     className={classes.removeItem}
                     onClick={() => {
-                      removeFromCart(props.product._id);
-                      addToWishList(props.product);
+                      if (isLoggedIn) {
+                        removeFromCart(props.product._id);
+                        addToWishList(props.product);
+                      } else {
+                        alert(
+                          "You must be logged in to add items to your wishlist."
+                        );
+                        return;
+                      }
                     }}
                   >
                     Add to Wishlist
