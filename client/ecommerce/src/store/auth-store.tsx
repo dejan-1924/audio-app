@@ -4,6 +4,7 @@ export interface IAuthContext {
   login: (token: string) => void;
   logout: () => void;
   isLoggedIn: boolean;
+  token: () => string;
 }
 
 export const AuthContext = createContext<IAuthContext | null>(null);
@@ -25,11 +26,15 @@ export const AuthContextProvider = (props: any) => {
     localStorage.removeItem("token");
     setToken(null);
   };
+  const getToken = () => {
+    return token;
+  };
 
   const contextValue: IAuthContext = {
     login,
     logout,
     isLoggedIn: token ? true : false,
+    token: getToken,
   };
 
   return (

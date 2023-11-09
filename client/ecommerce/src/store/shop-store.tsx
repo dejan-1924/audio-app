@@ -25,6 +25,7 @@ export interface IShopContext {
   setSearchQuery: (query: string) => void;
   getSearchQuery: () => string;
   resetPage: () => void;
+  resetCart: () => void;
   getPage: () => number;
   handleSetPage: (page: number) => void;
   getTotalPrice: () => number;
@@ -213,6 +214,10 @@ export const ShopContextProvider = (props: any) => {
     return totalPrice;
   };
 
+  const resetCart = () => {
+    setCartItems(null);
+  };
+
   const contextValue: IShopContext = {
     wishListItems,
     cartItems,
@@ -233,6 +238,7 @@ export const ShopContextProvider = (props: any) => {
     resetPage,
     getPage,
     getTotalPrice,
+    resetCart,
   };
 
   return (

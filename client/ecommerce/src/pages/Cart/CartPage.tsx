@@ -4,10 +4,39 @@ import classes from "./Cart.module.css";
 import { useContext } from "react";
 import { ShopContext } from "../../store/shop-store";
 import { AuthContext } from "../../store/auth-store";
+import axios from "axios";
 const CartPage = () => {
-  const { cartItems, getCartItemCount, getTotalPrice } =
+  const { cartItems, getCartItemCount, getTotalPrice, resetCart } =
     useContext(ShopContext);
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, token } = useContext(AuthContext);
+
+  const jwttoken = token();
+  console.log(jwttoken);
+  const handleOrder = async () => {
+    let items: Array<{ itemId: string; amount: number }> = [];
+    cartItems.map((item: any) =>
+      items.push({
+        itemId: item._id,
+        amount: item.amount,
+      })
+    );
+    try {
+      const result = await axios.post(
+        "http://localhost:3001/api/orders/new",
+        { items: items },
+        {
+          headers: {
+            Authorization: `Bearer ${jwttoken}`,
+          },
+        }
+      );
+      console.log(result.data);
+      alert("Order created succesfully");
+      resetCart();
+    } catch (err: any) {
+      alert("ERROR!");
+    }
+  };
 
   const totalPrice = getTotalPrice();
   const shippingPrice = 20;
@@ -34,7 +63,9 @@ const CartPage = () => {
                 <p>Shipping : {shippingPrice}€</p>
                 <h3>Total price : {totalPrice + shippingPrice}€</h3>
               </div>
-              <button className={classes.orderButton}>Order</button>
+              <button className={classes.orderButton} onClick={handleOrder}>
+                Order
+              </button>
             </div>
           )}{" "}
         </>

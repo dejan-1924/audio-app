@@ -24,25 +24,36 @@ const ProfilePage = () => {
         <div className={classes.profileItem}>
           <div className={classes.profileItemTitle}>My customer data</div>
           <div className={classes.profileItemBody}>
-            <button className={classes.profileItemButton}>Show</button>
+            <button className={classes.profileItemButton}>
+              Show customer data
+            </button>
           </div>
         </div>
         <div className={classes.profileItem}>
-          <div className={classes.profileItemTitle}>My customer data</div>
+          <div className={classes.profileItemTitle}>My Orders</div>
           <div className={classes.profileItemBody}>
-            <button className={classes.profileItemButton}>Show</button>
+            <button
+              className={classes.profileItemButton}
+              onClick={() => {
+                navigate("/profile/orders");
+              }}
+            >
+              Show orders
+            </button>
           </div>
         </div>
         <div className={classes.profileItem}>
-          <div className={classes.profileItemTitle}>My customer data</div>
+          <div className={classes.profileItemTitle}>My addresses</div>
           <div className={classes.profileItemBody}>
-            <button className={classes.profileItemButton}>Show</button>
+            <button className={classes.profileItemButton}>
+              Show addresses
+            </button>
           </div>
         </div>
         <div className={classes.profileItem}>
-          <div className={classes.profileItemTitle}>My customer data</div>
+          <div className={classes.profileItemTitle}>My wishlist</div>
           <div className={classes.profileItemBody}>
-            <button className={classes.profileItemButton}>Show</button>
+            <button className={classes.profileItemButton}>Show wishlist</button>
           </div>
         </div>
       </div>
