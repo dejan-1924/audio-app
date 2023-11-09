@@ -14,6 +14,7 @@ export interface IUser {
     postal_code: number;
   };
   phone: string;
+  role: string;
   availableMoney: number;
 }
 
@@ -23,6 +24,7 @@ const UserSchema = new Schema<IUser>({
   availableMoney: { type: Number, default: 5000 },
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },
+  role: { type: String, required: true },
   address: {
     country: { type: String, required: true },
     city: { type: String, required: true },

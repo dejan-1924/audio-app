@@ -1,9 +1,25 @@
 .productContainer {
   display: flex;
   padding: 1rem;
-  border-top: 1px solid var(--lightestGrey);
+  border-bottom: 1px solid var(--lightestGrey);
   gap: 0.5rem;
   width: 100%;
+}
+
+.productContainer:first-of-type {
+  border-top: 1px solid var(--lightestGrey);
+}
+
+.totalPrice {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.amountTimesPrice {
+  font-size: 0.9rem;
+  color: var(--textGrey);
 }
 
 .productInfo {
@@ -42,6 +58,7 @@
 
 .productPrice {
   width: 30%;
+  font-size: 1.1rem;
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;

@@ -56,7 +56,18 @@ const Product = (props: any) => {
             >{`${props.product.format} | ${props.product.release_year}`}</p>
           </div>
           <div className={classes.productPrice}>
-            <p className={classes.productPrice}>{props.product.price}€</p>
+            {props.page == "cart" ? (
+              <div className={classes.totalPrice}>
+                <p className={classes.productPrice}>
+                  {props.product.price * props.product.amount}€
+                </p>
+                <div
+                  className={classes.amountTimesPrice}
+                >{`(${props.product.amount} x  ${props.product.price}€)`}</div>
+              </div>
+            ) : (
+              <p className={classes.productPrice}>{props.product.price}€</p>
+            )}
           </div>
         </div>
         <div className={classes.productActions}>

@@ -13,3 +13,32 @@
   align-items: center;
   justify-content: center;
 }
+
+.checkout {
+  margin-top: 1rem;
+  background-color: var(--lightestGrey);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 2rem;
+  border-radius: 0.2rem;
+}
+
+.orderButton {
+  background-color: var(--blue);
+  color: white;
+  border: 0px;
+  padding: 1rem;
+  width: 100%;
+  min-width: 50px;
+  max-width: 200px;
+  border-radius: 0.3rem;
+}
+
+@media only screen and (min-width: 500px) {
+  .checkout {
+    flex-direction: row;
+  }
+}

@@ -14,6 +14,12 @@ export interface IShopContext {
   getWishListItemCount: () => number;
   getItemCountInCart: (itemId: string) => number;
   getDiffItemsInCart: () => number;
+  setSearchQuery: (query: string) => void;
+  getSearchQuery: () => string;
+  resetPage: () => void;
+  getPage: () => number;
+  handleSetPage: (page: number) => void;
+  getTotalPrice: () => number;
 }
 
 type ProductType = {
@@ -56,6 +62,9 @@ export const ShopContextProvider = (props: any) => {
   const [wishListItems, setWishListItems] = useState<[ProductType] | null>(
     null
   );
+  const [search, setSearch] = useState<string | null>("-1");
+  const [searchBefore, setSearchBefore] = useState<string | null>("-1");
+  const [page, setPage] = useState(1);
 
   const addToCart = (product: ProductType) => {
     if (!cartItems) {
@@ -163,6 +172,32 @@ export const ShopContextProvider = (props: any) => {
     return cartItems?.length;
   };
 
+  const setSearchQuery = (query: string) => {
+    console.log("promenjeno");
+    setSearch(query);
+  };
+
+  const getSearchQuery = () => {
+    return search;
+  };
+
+  const resetPage = () => {
+    setPage(1);
+  };
+  const getPage = () => {
+    return page;
+  };
+
+  const handleSetPage = (page: number) => {
+    setPage(page);
+  };
+
+  const getTotalPrice = () => {
+    let totalPrice = 0;
+    cartItems?.map((item) => (totalPrice += item.amount * item.price));
+    return totalPrice;
+  };
+
   const contextValue: IShopContext = {
     wishListItems,
     cartItems,
@@ -177,6 +212,12 @@ export const ShopContextProvider = (props: any) => {
     removeFromCart,
     getItemCountInCart,
     getDiffItemsInCart,
+    setSearchQuery,
+    getSearchQuery,
+    handleSetPage,
+    resetPage,
+    getPage,
+    getTotalPrice,
   };
 
   return (

@@ -4,19 +4,17 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import { userRouter } from "./routes/user";
 import { productRouter } from "./routes/product";
+import { orderRouter } from "./routes/order";
+const HttpError = require("./models/http-error");
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-app.use("/auth", userRouter);
-app.use("/product", productRouter);
-
-app.get("/", (req, res) => {
-  console.log(req);
-  return res.status(234).send("Welcome!");
-});
+app.use("/api/users", userRouter);
+app.use("/api/products", productRouter);
+app.use("/api/orders", orderRouter);
 
 mongoose
   .connect(
