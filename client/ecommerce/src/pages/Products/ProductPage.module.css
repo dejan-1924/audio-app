@@ -7,6 +7,18 @@
   flex-direction: column;
 }
 
+.leftContainer {
+  width: 100%;
+}
+
+.imageContainer {
+  width: 100%;
+}
+
+.productImage {
+  width: 100%;
+}
+
 .productInfo {
   width: 100%;
   overflow-x: hidden;
@@ -15,11 +27,6 @@
   cursor: pointer;
   gap: 0.5rem;
   padding-bottom: 1rem;
-}
-
-.productImage {
-  width: 100%;
-  cursor: pointer;
 }
 
 .productDetails {
@@ -31,7 +38,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .productInfoContainer {
@@ -112,24 +118,65 @@
 }
 
 .productTitle {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.4rem;
 }
 
 .productArtist {
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 .productPrice {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.trackList {
+  display: none;
+  background-color: white;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.song {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0rem;
+  border-top: 1px solid var(--lightGrey);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.song:last-of-type {
+  border-bottom: 1px solid var(--lightGrey);
+}
+.detailsPhone {
+  display: block;
+}
+.detailsFS {
+  display: none;
 }
 
 @media only screen and (min-width: 500px) {
+  .detailsFS {
+    display: block;
+  }
+  .detailsPhone {
+    display: none;
+  }
+  .trackList {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 300px;
+  }
+
   .productContainer {
     flex-direction: row;
   }
   .productImage {
-    max-width: 400px;
+    max-width: 500px;
   }
   .productInfo {
     gap: 0.5rem;

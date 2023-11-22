@@ -6,10 +6,12 @@ import Register from "./Register";
 import axios from "axios";
 import { ConnectionStates } from "mongoose";
 import { useNavigate } from "react-router";
+import { useContext } from "react";
+import { AuthContext } from "../../store/auth-store";
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const authCtx = useContext(AuthContext);
   const {
     handleSubmit,
     register,
@@ -18,11 +20,12 @@ const Login = () => {
 
   const onSubmit = async (values: any) => {
     try {
-      const result = await axios.post("http://localhost:3001/auth/login", {
+      const result = await axios.post("http://localhost:3001/api/users/login", {
         username: values.email,
         password: values.password,
       });
       console.log(result.data);
+      authCtx?.login(result.data.token);
       navigate("/shop");
     } catch (err: any) {
       alert("ERROR!");

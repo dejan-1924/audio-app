@@ -6,7 +6,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { ShopContext } from "../../store/shop-store";
 import Select from "react-select";
 import { useNavigate } from "react-router";
-
+import { AuthContext } from "../../store/auth-store";
 const Product = (props: any) => {
   const {
     addToCart,
@@ -17,6 +17,7 @@ const Product = (props: any) => {
     removeFromCart,
     getItemCountInCart,
   } = useContext(ShopContext);
+  const { isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   //Order Count Options
   let orderOptions: Array<{ value: any; label: any }> = [];
@@ -38,7 +39,7 @@ const Product = (props: any) => {
         src={props.product.image}
         className={classes.productImage}
         onClick={() => {
-          navigateToProduct(props.product.id);
+          navigateToProduct(props.product._id);
         }}
       ></img>
       <div className={classes.productInfoPriceContainer}>
@@ -46,24 +47,35 @@ const Product = (props: any) => {
           <div
             className={classes.productInfo}
             onClick={() => {
-              navigateToProduct(props.product.id);
+              navigateToProduct(props.product._id);
             }}
           >
             <p className={classes.productArtist}>{props.product.artist_name}</p>
-            <p className={classes.productTitle}>{props.product.item_name}</p>
+            <p className={classes.productTitle}>{props.product.product_name}</p>
             <p
               className={classes.productDetails}
-            >{`${props.product.content} | ${props.product.year}`}</p>
+            >{`${props.product.format} | ${props.product.release_year}`}</p>
           </div>
           <div className={classes.productPrice}>
-            <p className={classes.productPrice}>{props.product.price}€</p>
+            {props.page == "cart" ? (
+              <div className={classes.totalPrice}>
+                <p className={classes.productPrice}>
+                  {props.product.price * props.product.amount}€
+                </p>
+                <div
+                  className={classes.amountTimesPrice}
+                >{`(${props.product.amount} x  ${props.product.price}€)`}</div>
+              </div>
+            ) : (
+              <p className={classes.productPrice}>{props.product.price}€</p>
+            )}
           </div>
         </div>
         <div className={classes.productActions}>
           <div>
             {props.page == "products" && (
               <>
-                {!isItemInWishList(props.product.id) ? (
+                {!isItemInWishList(props.product._id) ? (
                   <button
                     className={classes.likeButton}
                     onClick={() => addToWishList(props.product)}
@@ -73,7 +85,7 @@ const Product = (props: any) => {
                 ) : (
                   <button
                     className={classes.likeButton}
-                    onClick={() => removeFromWishList(props.product.id)}
+                    onClick={() => removeFromWishList(props.product._id)}
                   >
                     <FavoriteIcon></FavoriteIcon>
                   </button>
@@ -89,9 +101,9 @@ const Product = (props: any) => {
               >
                 <div className={classes.buttonContent}>
                   <ShoppingCartIcon></ShoppingCartIcon>
-                  {getItemCountInCart(props.product.id) > 0 && (
+                  {getItemCountInCart(props.product._id) > 0 && (
                     <span className={classes.addToCartButtonNumber}>
-                      {getItemCountInCart(props.product.id)}
+                      {getItemCountInCart(props.product._id)}
                     </span>
                   )}
                 </div>
@@ -105,7 +117,7 @@ const Product = (props: any) => {
             ) : props.page === "wishlist" ? (
               <p
                 className={classes.removeItem}
-                onClick={() => removeFromWishList(props.product.id)}
+                onClick={() => removeFromWishList(props.product._id)}
               >
                 Remove item
               </p>
@@ -121,21 +133,34 @@ const Product = (props: any) => {
                   }}
                   options={orderOptions}
                   onChange={(event: any) =>
-                    handleChangeProductAmount(event, props.product.id)
+                    handleChangeProductAmount(event, props.product._id)
                   }
                 />
+                {!isItemInWishList(props.product._id) ? (
+                  <p
+                    className={classes.removeItem}
+                    onClick={() => {
+                      if (isLoggedIn) {
+                        removeFromCart(props.product._id);
+                        addToWishList(props.product);
+                      } else {
+                        alert(
+                          "You must be logged in to add items to your wishlist."
+                        );
+                        return;
+                      }
+                    }}
+                  >
+                    Add to Wishlist
+                  </p>
+                ) : (
+                  <p className={classes.alreadyInWishlist}>
+                    Item is already in wishlist
+                  </p>
+                )}
                 <p
                   className={classes.removeItem}
-                  onClick={() => {
-                    removeFromCart(props.product.id);
-                    addToWishList(props.product);
-                  }}
-                >
-                  Add to Wishlist
-                </p>
-                <p
-                  className={classes.removeItem}
-                  onClick={() => removeFromCart(props.product.id)}
+                  onClick={() => removeFromCart(props.product._id)}
                 >
                   Remove item
                 </p>

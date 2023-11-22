@@ -19,7 +19,7 @@ const customStyles = {
   }),
 };
 
-const days = [
+let days = [
   { value: "1", label: "1" },
   { value: "2", label: "2" },
   { value: "3", label: "3" },
@@ -95,31 +95,35 @@ const Register = () => {
       street: "",
       streetNumber: "",
       country: "",
+      ct: "",
       city: "",
       telephone: "",
-      day: {},
-      month: {},
-      year: {},
+      day: "",
+      month: "",
+      year: "",
     },
   });
 
   const onSubmit = async (values: any) => {
     console.log(values);
     try {
-      const result = await axios.post("http://localhost:3001/auth/register", {
-        username: values.email,
-        password: values.password,
-        first_name: values.firstName,
-        last_name: values.lastName,
-        address: {
-          postal_code: values.postalCode,
-          street_name: values.street,
-          street_number: values.streetNumber,
-          country: values.country.value,
-          city: values.city,
-        },
-        phone: values.telephone,
-      });
+      const result = await axios.post(
+        "http://localhost:3001/api/users/register",
+        {
+          username: values.email,
+          password: values.password,
+          first_name: values.firstName,
+          last_name: values.lastName,
+          address: {
+            postal_code: values.postalCode,
+            street_name: values.street,
+            street_number: values.streetNumber,
+            country: values.country.value,
+            city: values.city,
+          },
+          phone: values.telephone,
+        }
+      );
       console.log(result.data);
       alert("SUCCES!");
       navigate("/login");
@@ -235,6 +239,7 @@ const Register = () => {
             />
           )}
         />
+
         <div className={classes.birthDate}>
           <div className={classes.birthDatePart}>
             <Controller
@@ -243,11 +248,8 @@ const Register = () => {
               render={({ field }) => (
                 <Select
                   styles={customStyles}
-                  components={{
-                    IndicatorSeparator: () => null,
-                  }}
                   {...field}
-                  placeholder="Country"
+                  placeholder="Day"
                   options={days}
                 />
               )}
@@ -265,6 +267,7 @@ const Register = () => {
                   }}
                   {...field}
                   options={months}
+                  placeholder="Month"
                 />
               )}
             />

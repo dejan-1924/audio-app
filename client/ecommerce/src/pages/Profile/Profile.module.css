@@ -1,0 +1,71 @@
+.profile {
+  padding: 1rem;
+  min-height: 80vh;
+}
+
+.title {
+  padding: 0.5rem 0rem;
+}
+
+.profileItems {
+  display: grid;
+  grid-template-columns: auto;
+  row-gap: 1rem;
+  margin-top: 1rem;
+}
+.profileItem {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  border: 1px solid rgb(193, 189, 189);
+  max-width: 700px;
+}
+.profileItemTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem 1rem 0rem 0rem;
+  background-color: var(--lightestGrey);
+}
+.profileItemBody {
+  padding: 2rem;
+  padding-bottom: 3rem;
+}
+.profileItemButton {
+  padding: 0.8rem 4rem;
+  background-color: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 0.3rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoutButton {
+  padding: 0.8rem 4rem;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 0.3rem;
+  border: 1px solid grey;
+  font-size: 1rem;
+}
+
+@media screen and (min-width: 600px) {
+  .profileItems {
+    grid-template-columns: auto auto;
+    gap: 2rem;
+  }
+}

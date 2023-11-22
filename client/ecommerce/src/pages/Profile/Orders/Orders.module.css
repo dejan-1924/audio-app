@@ -1,4 +1,4 @@
-.wishList {
+.orders {
   padding: 1rem;
   min-height: 80vh;
 }
@@ -7,9 +7,15 @@
   padding: 0.5rem 0rem;
 }
 
-.emptyWishList {
+.emptyOrders {
   height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.orderList {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }

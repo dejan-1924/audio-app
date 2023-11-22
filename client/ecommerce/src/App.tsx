@@ -14,6 +14,9 @@ import ProfilePage from "./pages/Profile/ProfilePage";
 import CartPage from "./pages/Cart/CartPage";
 import WishListPage from "./pages/WishList/WishListPage";
 import ProductPage from "./pages/Products/ProductPage";
+import { Navigate } from "react-router-dom";
+import AuthRoute from "./util/AuthRoute";
+import MyOrdersPage from "./pages/Profile/Orders/MyOrdersPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,7 +27,11 @@ const router = createBrowserRouter(
       <Route path="/shop" element={<ProductsPage></ProductsPage>} />
       <Route path="/shop/item/:id" element={<ProductPage></ProductPage>} />
       <Route path="/cart" element={<CartPage></CartPage>} />
-      <Route path="/wishlist" element={<WishListPage></WishListPage>} />
+      <Route element={<AuthRoute></AuthRoute>}>
+        <Route path="/wishlist" element={<WishListPage></WishListPage>} />
+        <Route path="/profile/orders" element={<MyOrdersPage></MyOrdersPage>} />
+      </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Route>
   )
 );

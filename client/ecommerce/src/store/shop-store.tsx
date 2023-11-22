@@ -1,4 +1,12 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useEffect,
+  useState,
+  useContext,
+} from "react";
+import { AuthContext } from "./auth-store";
+import { useNavigate } from "react-router";
 
 export interface IShopContext {
   cartItems: Array<ProductTypeAmount> | null;
@@ -7,43 +15,66 @@ export interface IShopContext {
   getCartItemCount: () => number;
   addToCart: (item: ProductType) => void;
   addToWishList: (item: ProductType) => void;
-  removeFromWishList: (itemId: number) => void;
-  isItemInWishList: (itemId: number) => boolean;
-  updateCartItemCount: (newAmount: number, productId: number) => void;
+  removeFromWishList: (itemId: string) => void;
+  isItemInWishList: (itemId: string) => boolean;
+  updateCartItemCount: (newAmount: number, productId: string) => void;
   removeFromCart: (itemId: string) => void;
   getWishListItemCount: () => number;
-  getItemCountInCart: (itemId: number) => number;
+  getItemCountInCart: (itemId: string) => number;
   getDiffItemsInCart: () => number;
+  setSearchQuery: (query: string) => void;
+  getSearchQuery: () => string;
+  resetPage: () => void;
+  resetCart: () => void;
+  getPage: () => number;
+  handleSetPage: (page: number) => void;
+  getTotalPrice: () => number;
 }
 
 type ProductType = {
-  id: number;
+  _id?: string;
+  product_id: string;
+  product_name: string;
   artist_name: string;
-  item_name: string;
+  release_year: string;
+  format: string;
   price: number;
-  content: string;
-  year: number;
+  description: string;
+  stock_quantity: number;
+  category: string;
+  genre: string;
   image: string;
+  release_region: string;
 };
 
 type ProductTypeAmount = {
-  id: number;
+  _id?: string;
+  product_id: string;
+  product_name: string;
   artist_name: string;
-  item_name: string;
+  release_year: string;
+  format: string;
   price: number;
-  content: string;
-  year: number;
+  description: string;
+  stock_quantity: number;
+  category: string;
+  genre: string;
   image: string;
+  release_region: string;
   amount: number;
 };
 
 export const ShopContext = createContext<IShopContext | null>(null);
 
 export const ShopContextProvider = (props: any) => {
+  const authCtx = useContext(AuthContext);
   const [cartItems, setCartItems] = useState<[ProductTypeAmount] | null>(null);
   const [wishListItems, setWishListItems] = useState<[ProductType] | null>(
     null
   );
+  const [search, setSearch] = useState<string | null>("-1");
+  const [searchBefore, setSearchBefore] = useState<string | null>("-1");
+  const [page, setPage] = useState(1);
 
   const addToCart = (product: ProductType) => {
     if (!cartItems) {
@@ -51,13 +82,13 @@ export const ShopContextProvider = (props: any) => {
       setCartItems(newCartItems);
     } else {
       var existingProduct;
-      cartItems?.find(({ id }) => id == product.id)
-        ? (existingProduct = product.id)
+      cartItems?.find(({ _id }) => _id == product._id)
+        ? (existingProduct = product._id)
         : (existingProduct = -1);
 
       if (existingProduct !== -1) {
         const newItems = cartItems?.map((item) => {
-          if (item.id === product.id) {
+          if (item._id === product._id) {
             return { ...item, amount: item.amount + 1 };
           } else {
             return item;
@@ -72,28 +103,34 @@ export const ShopContextProvider = (props: any) => {
   };
 
   const addToWishList = (product: ProductType) => {
-    if (!wishListItems) {
-      let newWLItems = [{ ...product }];
-      setWishListItems(newWLItems);
+    if (authCtx?.isLoggedIn) {
+      if (!wishListItems) {
+        let newWLItems = [{ ...product }];
+        setWishListItems(newWLItems);
+      } else {
+        let newWLItems = [...wishListItems, { ...product }];
+        setWishListItems(newWLItems);
+      }
     } else {
-      let newWLItems = [...wishListItems, { ...product }];
-      setWishListItems(newWLItems);
+      alert("You must be logged in to add items to your wishlist.");
+
+      return;
     }
   };
 
   const removeFromCart = (itemId: string) => {
     var newCart = [...cartItems];
     const index = newCart?.findIndex((item) => {
-      return item.id === itemId;
+      return item._id === itemId;
     });
     newCart.splice(index, 1);
 
     setCartItems(newCart);
   };
 
-  const updateCartItemCount = (newAmount: number, productId: number) => {
+  const updateCartItemCount = (newAmount: number, productId: string) => {
     const newItems = cartItems?.map((item) => {
-      if (item.id === productId) {
+      if (item._id == productId) {
         return { ...item, amount: newAmount };
       } else {
         return item;
@@ -110,18 +147,18 @@ export const ShopContextProvider = (props: any) => {
     return cartItems;
   };
 
-  const isItemInWishList = (productId: number) => {
+  const isItemInWishList = (productId: string) => {
     var isItemInWishList;
-    wishListItems?.find(({ id }) => id == productId)
+    wishListItems?.find(({ _id }) => _id == productId)
       ? (isItemInWishList = true)
       : (isItemInWishList = false);
     return isItemInWishList;
   };
 
-  const removeFromWishList = (productId: number) => {
+  const removeFromWishList = (productId: string) => {
     var newWL = [...wishListItems];
     const index = newWL?.findIndex((item) => {
-      return item.id === productId;
+      return item._id === productId;
     });
     newWL.splice(index, 1);
 
@@ -132,9 +169,9 @@ export const ShopContextProvider = (props: any) => {
     return wishListItems?.length > 0 ? wishListItems?.length : 0;
   };
 
-  const getItemCountInCart = (productId: number) => {
+  const getItemCountInCart = (productId: string) => {
     if (cartItems?.length > 0) {
-      const cartItem = cartItems?.filter((product) => product.id === productId);
+      const cartItem = cartItems?.filter((product) => product._id == productId);
 
       if (cartItem?.length == 0) {
         return 0;
@@ -151,6 +188,36 @@ export const ShopContextProvider = (props: any) => {
     return cartItems?.length;
   };
 
+  const setSearchQuery = (query: string) => {
+    console.log("promenjeno");
+    setSearch(query);
+  };
+
+  const getSearchQuery = () => {
+    return search;
+  };
+
+  const resetPage = () => {
+    setPage(1);
+  };
+  const getPage = () => {
+    return page;
+  };
+
+  const handleSetPage = (page: number) => {
+    setPage(page);
+  };
+
+  const getTotalPrice = () => {
+    let totalPrice = 0;
+    cartItems?.map((item) => (totalPrice += item.amount * item.price));
+    return totalPrice;
+  };
+
+  const resetCart = () => {
+    setCartItems(null);
+  };
+
   const contextValue: IShopContext = {
     wishListItems,
     cartItems,
@@ -165,6 +232,13 @@ export const ShopContextProvider = (props: any) => {
     removeFromCart,
     getItemCountInCart,
     getDiffItemsInCart,
+    setSearchQuery,
+    getSearchQuery,
+    handleSetPage,
+    resetPage,
+    getPage,
+    getTotalPrice,
+    resetCart,
   };
 
   return (
