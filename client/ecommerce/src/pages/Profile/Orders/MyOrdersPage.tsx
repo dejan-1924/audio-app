@@ -14,16 +14,22 @@ const MyOrdersPage = () => {
       <div className={classes.title}>
         <h3>My orders</h3>
       </div>
-      {orders.data.length > 0 ? (
-        <div className={classes.orderList}>
-          {orders?.data.map((order: any) => {
-            return <OrderCard order={order}></OrderCard>;
-          })}
-        </div>
+      {isLoading ? (
+        <div>Loading</div>
       ) : (
-        <div className={classes.emptyOrders}>
-          <h4>You have no previous orders.</h4>
-        </div>
+        <>
+          {orders.data.length > 0 ? (
+            <div className={classes.orderList}>
+              {orders?.data.map((order: any) => {
+                return <OrderCard order={order}></OrderCard>;
+              })}
+            </div>
+          ) : (
+            <div className={classes.emptyOrders}>
+              <h4>You have no previous orders.</h4>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

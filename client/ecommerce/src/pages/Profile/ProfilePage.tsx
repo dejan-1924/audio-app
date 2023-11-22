@@ -3,12 +3,15 @@ import classes from "./Profile.module.css";
 import { AuthContext } from "../../store/auth-store";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
+import { ShopContext } from "../../store/shop-store";
 
 const ProfilePage = () => {
   const authCtx = useContext(AuthContext);
+  const shopCtx = useContext(ShopContext);
   const navigate = useNavigate();
   const handleLogout = () => {
     authCtx?.logout();
+    shopCtx?.resetCart();
     navigate("/");
   };
 
